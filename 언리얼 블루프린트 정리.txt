@@ -17,6 +17,9 @@ GetWorldTransform
 Get Actor Of Class
 해당 클래스의 액터를 가져옴
 
+Get Game Mode
+현재 게임의 모드를 가져옴
+
 InputAction Fire
 특정키 감지시 엔진에서 해당 이벤트를 호출
 
@@ -34,5 +37,35 @@ Spawn Emitter at Location
 
 ?Is Valid
 해당 액터가 현재 유효한지 확인
+
+Create (클래스) Widget 
+클래스에 해당하는 위젯 생성
+
+Add to viewport
+target을 뷰포트에 추가
+
+Get PlayerController
+플레이어의 입출력을 담당하는 컨트롤러를 가져옴
+
+Set Mouse Cursor
+마우스 커서 숨김 설정
+
+Set Game Pause
+게임을 일시정지
+
+Play Sound 2D
+플레이어가 어디에 있는 무조건 출력
+3D의 경우 플레이어의 위치에 따라 소리 크기가 달라짐
+
+Create Save Game Object
+게임 저장 인스턴스 생성
+
+Save Game to Slot
+저장 인스턴스를 받아 슬롯에 데이터 저장
+
+Load Game From Slot
+슬롯에 저장된 데이터 반환
+반환값은 저장한 인스턴스가 반환됨
+캐스팅 후 인스턴스에서 데이터를 가져와야함
 
 
