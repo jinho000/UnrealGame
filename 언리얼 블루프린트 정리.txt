@@ -1,0 +1,38 @@
+Get Actor Forward Vector
+현재 액터가 바라보는 방향 벡터 반환 
+
+Get Actor Location 
+현재 액터의 위치 반환
+
+Set Actor Location
+현재 액터의 위치 세팅
+
+Normalize
+현재 벡터의 크기를 1로 정규화
+
+GetWorldTransform
+전달 받은 액터의 월드상의 좌표 반환
+액터안에 다른 컴포넌트가 속한 액터인경우 
+
+Get Actor Of Class
+해당 클래스의 액터를 가져옴
+
+InputAction Fire
+특정키 감지시 엔진에서 해당 이벤트를 호출
+
+Spawn Actor
+특정 액터를 생성
+
+Cast To (class)
+해당 클래스로 변환시켜 반환
+
+Destroy Actor
+액터를 삭제
+
+Spawn Emitter at Location
+지정된 위치에 파티클 생성
+
+?Is Valid
+해당 액터가 현재 유효한지 확인
+
+
