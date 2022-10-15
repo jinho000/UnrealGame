@@ -16,8 +16,6 @@ ACodingTest::ACodingTest()
 void ACodingTest::BeginPlay()
 {
 	Super::BeginPlay();
-	// 한글
-	// 한글
 	UE_LOG(LogTemp, Warning, TEXT("string test %d\n"), Add(number1, number2));
 }
 
