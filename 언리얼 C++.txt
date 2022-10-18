@@ -51,8 +51,18 @@ BlueprintReadOnly: 블루프린트 설정창에서 읽기만 가능
 BlueprintCallable: 블루프린트 상에서 실행 연결 가능
 BlueprintPure: 블루프린트 상에서 값만 읽어오기 가능
 
-- 클래스 변수
+- 클래스 변수설정
 클래스에 작성한 변수는 블루프린트의 detail 창에서 조작가능
 
+
+- UI
+CreateWidget<>
+위젯 생성
+
+AddToViewport
+뷰포트에 위젯 추가
+
+SetText
+TextBlock의 텍스트 수정
 
 

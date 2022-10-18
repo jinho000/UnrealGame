@@ -5,7 +5,10 @@
 
 #include <Components/BoxComponent.h>
 #include <Components/StaticMeshComponent.h>
+#include <Kismet/GameplayStatics.h>
 
+#include "EnemyActor.h"
+#include "ShootingGameModebase.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -19,6 +22,15 @@ ABullet::ABullet()
 	boxComponent = CreateDefaultSubobject<UBoxComponent>(L"BoxComp");
 	boxComponent->SetBoxExtent(FVector(50.f, 50.f, 50.f));
 	boxComponent->SetWorldScale3D(FVector(0.75f, 0.25f, 1.f));
+	
+	// 충돌처리 옵션을 미리 설정한 프리셋으로 설정
+	boxComponent->SetCollisionProfileName(L"Bullet");
+
+	// 박스 컴포넌트의 BeginOverlap 델리게이트에 함수 연결
+	// 박스 컴포넌트 충돌 오버렙 이벤트에 OnbulletOverlap 함수를 연결
+	boxComponent->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnBulletOverlap);
+
+	// 루트 컴포넌트로 설정
 	SetRootComponent(boxComponent);
 
 	// meshComponent 생성
@@ -41,5 +53,30 @@ void ABullet::Tick(float DeltaTime)
 	FVector newLocation = GetActorLocation() + GetActorForwardVector() * moveSpeed * DeltaTime;
 	SetActorLocation(newLocation);
 
+}
+
+void ABullet::OnBulletOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	AEnemyActor* pEnemy = Cast<AEnemyActor>(OtherActor);
+	
+	if (pEnemy != nullptr)
+	{
+		// 점수처리
+		AGameModeBase* currentMode = GetWorld()->GetAuthGameMode();
+		AShootingGameModebase* currentGameModeBase = Cast<AShootingGameModebase>(currentMode);
+		if (currentGameModeBase != nullptr)
+		{
+			currentGameModeBase->AddScore(1);
+		}
+
+		// 폭발 이펙트 생성
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), explosionFX, GetActorLocation(), GetActorRotation());
+
+		// 충돌한 대상이 Enemy인경우 Enemy 삭제
+		OtherActor->Destroy();
+	}
+
+	// 충돌 후 총알 삭제
+	Destroy();
 }
 

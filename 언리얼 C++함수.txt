@@ -37,3 +37,25 @@ GetActorLocation
 
 SetActorLocation
 액터 위치 세팅
+
+
+- 충돌
+충돌박스 컴포넌트의 함수
+
+SetGenerateOverlapEvents
+오버렙 이벤트 설정
+
+SetCollisionEnabled
+충돌 응답 설정
+
+SetCollisionObjectType
+응답 채널 설정
+
+언리얼에서 설정한 순서대로 채널에 배정됨 
+ECC_GameTraceChannel1 -> Player
+ECC_GameTraceChannel2 -> Enemy
+ECC_GameTraceChannel3 -> Bullet
+
+
+
+

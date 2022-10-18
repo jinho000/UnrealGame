@@ -17,6 +17,7 @@ APlayerPawn::APlayerPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+
 	// 박스 콜라이더 컴포넌트 생성
 	{
 		// 생성시 박스 컴포넌트의 이름 설정
@@ -28,6 +29,29 @@ APlayerPawn::APlayerPawn()
 		// 박스 컴포넌트의 크기 설정
 		FVector boxSize = FVector(50.f, 50.f, 50.f);
 		boxRootComponent->SetBoxExtent(boxSize);
+
+		// Collision
+		{
+			// 오버랩 이벤트를 켠다
+			boxRootComponent->SetGenerateOverlapEvents(true);
+
+			// 충돌 응답을 Query And Phsics로 설정
+			boxRootComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+			// Object Type을 1번 채널로 설정
+			// 언리얼에서 설정한 순서대로 채널에 배정됨 
+			// ECC_GameTraceChannel1 -> Player
+			// ECC_GameTraceChannel2 -> Enemy
+			// ECC_GameTraceChannel3 -> Bullet
+			boxRootComponent->SetCollisionObjectType(ECC_GameTraceChannel1);
+
+			// 모든 채널을 응답없음 설정
+			boxRootComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+
+			// Enemy와 충돌이벤트 overlap, killzone과는 block
+			boxRootComponent->SetCollisionResponseToChannel(ECC_GameTraceChannel2, ECR_Overlap);
+			boxRootComponent->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+		}
 	}
 
 	// meshComponent 생성
@@ -43,6 +67,7 @@ APlayerPawn::APlayerPawn()
 		firePosition = CreateDefaultSubobject<UArrowComponent>(L"ArrowComp");
 		firePosition->SetupAttachment(boxRootComponent);
 	}
+	
 }
 
 // Called when the game starts or when spawned
@@ -67,7 +92,9 @@ void APlayerPawn::Tick(float DeltaTime)
 
 	// 3 현재 위치에 속도(방향 * 속력)에 보간된 시간값을 곱한 후 나온 이동결과를 현재 위치에 더해 세팅
 	FVector newLocation = GetActorLocation() + direction * moveSpeed * DeltaTime;
-	SetActorLocation(newLocation);
+	
+	// 블로킹 가능하도록 sweep 설정
+	SetActorLocation(newLocation, true);
 }
 
 // Called to bind functionality to input

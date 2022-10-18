@@ -30,6 +30,13 @@ void AEnemyFactor::Tick(float DeltaTime)
 		// EnemyFactory위치에서 Enemy 생성
 		AEnemyActor* spawnActor = GetWorld()->SpawnActor<AEnemyActor>(enemy, GetActorLocation(), GetActorRotation());
 
+		if (spawnActor != nullptr)
+		{
+			FVector testV = spawnActor->GetActorLocation();
+			testV = spawnActor->GetActorLocation();
+			testV = spawnActor->GetActorForwardVector();
+		}
+
 		currentTime = 0.f;
 	}
 	else
