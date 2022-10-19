@@ -2,6 +2,8 @@
 #include "ShootingGameModebase.h"
 #include <Blueprint/UserWidget.h>
 #include <Components/TextBlock.h>
+#include <Kismet/GameplayStatics.h>
+
 #include "MainWidget.h"
 #include "MeneWidget.h"
 
@@ -42,13 +44,20 @@ void AShootingGameModebase::AddScore(int32 point)
 
 void AShootingGameModebase::ShowMenu()
 {
-	if (menuWidget != nullptr)
-	{
-		menuUI = CreateWidget<UMeneWidget>(GetWorld(), menuWidget);
+	if (menuWidget == nullptr)
+		return;
 
-		if (menuUI != nullptr)
-		{
-			menuUI->AddToViewport();
-		}
-	}
+	// 메뉴 위젯 생성
+	menuUI = CreateWidget<UMeneWidget>(GetWorld(), menuWidget);
+	if (menuUI == nullptr)
+		return;
+
+	// 메뉴 위젯을 뷰포트에 추가
+	menuUI->AddToViewport();
+	
+	// 게임을 일시정지
+	UGameplayStatics::SetGamePaused(GetWorld(), true);
+
+	// 플레이어 컨트롤러에서 마우스 커서를 화면에 보이게 설정
+	GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(true);
 }

@@ -24,4 +24,18 @@ public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	class UButton* buttonQuit;
 
+protected:
+	// navive construct 생성자 함수를 이용해 버튼 클릭시 호출함수를 연결
+	virtual void NativeConstruct() override;
+
+private: 
+	
+	// 버튼 클릭시 함수 처리
+	// 버튼 클릭시 함수를 델리게이트로 연결해야하므로 UFUNCTION키워드 설정
+	
+	UFUNCTION()
+	void Restart();
+
+	UFUNCTION()
+	void Quit();
 };

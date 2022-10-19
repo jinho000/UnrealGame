@@ -22,7 +22,7 @@ public:
 
 	// 게임종료메뉴를 생성하기 위한 변수
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UMainWidget> menuWidget;
+	TSubclassOf<class UMeneWidget> menuWidget;
 
 
 protected:

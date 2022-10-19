@@ -57,5 +57,31 @@ ECC_GameTraceChannel2 -> Enemy
 ECC_GameTraceChannel3 -> Bullet
 
 
+- 유틸
+UGameplayStatics::SetGamePaused
+게임일시정지 설정
+
+GetWorld()->GetFirstPlayerController()->SetShowMouseCursor()
+플레이어 컨트롤러를 가져와 마우스 보이기 설정
+
+
+
+- UI
+CreateWidget<>
+위젯 생성
+
+AddToViewport
+뷰포트에 위젯 추가
+
+SetText
+TextBlock의 텍스트 수정
+
+
+- UKismetSystemLibrary
+앱 시스템을 제어하기위한 함수들이 구현되어있는 라이브러리
+
+QuitGame()
+앱을 종료하는 함수
+
 
 
